@@ -10,7 +10,8 @@ An online world where heroes, villains and charming characters turn money into a
 <br>
 
 [![Live website](https://img.shields.io/badge/Live_website-playglory.netlify.app-E2457F?style=for-the-badge)](https://playglory.netlify.app/)
-[![Pitch](https://img.shields.io/badge/Watch_the_pitch-3_min-6A4BD6?style=for-the-badge)](https://playglory.netlify.app/#pitch)
+[![Pitch](<img width="1023" height="271" alt="image" src="https://github.com/user-attachments/assets/ace5ac1e-d33b-46b4-b367-9791dc079fcc" />
+)](https://playglory.netlify.app/#pitch)
 [![Solana](https://img.shields.io/badge/Built_for-Solana-14F195?style=for-the-badge&logo=solana&logoColor=white&labelColor=000000)](#-solana-achievements-that-go-beyond-the-game)
 
 ![Status](https://img.shields.io/badge/status-pre--MVP-FFC845?style=flat-square)
