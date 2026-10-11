@@ -1,8 +1,0 @@
-[build]
-  base = "glory-site"
-  publish = "."
-  functions = "netlify/functions"
-  command = "npm install"
-
-[functions]
-  node_bundler = "esbuild"
