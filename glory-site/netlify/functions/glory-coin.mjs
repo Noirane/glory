@@ -32,6 +32,19 @@ async function ensureMint(connection, treasury, mint) {
 }
 
 export default async (req) => {
+  if (req.method === 'GET') {   // health check: open this URL in a browser to see if everything is set up
+    const info = { function: 'ok', secretSet: !!process.env.GLORY_DEVNET_SECRET, rpc: process.env.SOLANA_RPC || 'devnet' };
+    try {
+      const s = process.env.GLORY_DEVNET_SECRET; if (!s) throw new Error('GLORY_DEVNET_SECRET is not set');
+      const t = Keypair.fromSecretKey(Uint8Array.from(JSON.parse(s)));
+      const c = new Connection(process.env.SOLANA_RPC || clusterApiUrl('devnet'), 'confirmed');
+      const m = Keypair.fromSeed(seed(s, 'glory-coin-mint-v1')).publicKey;
+      Object.assign(info, { treasury: t.publicKey.toBase58(), treasurySOL: (await c.getBalance(t.publicKey)) / 1e9,
+        mint: m.toBase58(), mintCreated: !!(await c.getAccountInfo(m)) });
+      info.ready = info.treasurySOL > 0;
+    } catch (e) { info.error = String(e.message || e); }
+    return Response.json(info);
+  }
   if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
   let body = {}; try { body = await req.json(); } catch {}
   const player = String(body.player || '').replace(/[^a-z0-9-]/gi, '').slice(0, 24);
