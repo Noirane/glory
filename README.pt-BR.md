@@ -78,7 +78,6 @@ A Laura trabalha na sorveteria e ganha **10% de cada venda em GLORY Coin** para 
 </tr>
 </table>
 
-> 🧪 **Teste rápido:** [`/play/?teste=1`](https://playglory.netlify.app/play/?teste=1&lang=pt) começa com +50 GLORY Coin e dias de 90 segundos, para ver a comissão, uma compra e as transações na Solana em cerca de dois minutos. O modo de teste tem o seu próprio save e nunca mexe no recorde real.
 
 ---
 
@@ -99,7 +98,6 @@ A Laura trabalha na sorveteria e ganha **10% de cada venda em GLORY Coin** para 
 - [Modelo de negócio e mercado](#-modelo-de-negócio-e-mercado)
 - [Roadmap](#️-roadmap)
 - [O que há neste repositório](#-o-que-há-neste-repositório)
-- [Como rodar](#-como-rodar)
 - [Equipe](#-equipe)
 
 ---
@@ -127,7 +125,16 @@ Quando analisamos o que já existe, encontramos um padrão: **muitos jogos finan
 
 **GLORY é um jogo online em que a criança vive a história, em vez de apenas lê-la.**
 
-Uma cidade do tesouro, dois irmãos gêmeos muito diferentes, um vilão que oferece *dinheiro fácil hoje* e heróis que ajudam todos a fazer escolhas melhores. Cada missão envolve dinheiro, e cada escolha tem uma consequência.
+A Cidade do Tesouro é governada por dois gêmeos: **Prudêncio**, que planeja e poupa, e **Valério**, que ama coisas caras e quer tudo para ontem.<br>
+Impaciente, Valério faz um pacto secreto com o **Dr. Crédito**, e o dinheiro fácil se espalha pela cidade.<br>
+No começo, todos comemoram. Depois, as dívidas crescem mais rápido do que qualquer um consegue pagar.<br>
+Os Jurildos vermelhos fazem os juros subirem, e quem não consegue pagar vira um **zumbi do crédito**.<br>
+Prudêncio descobre a verdade, aperta o botão de emergência… e um agente é chamado: **você**.
+
+O jogador escolhe e personaliza seu agente, para que crianças de diferentes etnias e características físicas se vejam no jogo.
+
+<img src="docs/images/storyboard.jpg" width="100%">
+<img src="docs/images/customization.jpg" width="100%">
 
 ---
 
@@ -140,16 +147,10 @@ Uma cidade do tesouro, dois irmãos gêmeos muito diferentes, um vilão que ofer
                      esforço              que acontece            conquistas
 ```
 
-| Escolha | O que acontece no jogo |
-|---|---|
-| 🛍️ **Gastar** | Você comprou um lanche agora. Menos moedas para depois. |
-| 🐷 **Poupar** | Seu cofrinho cresce. Poupar vale a pena! |
-| 📈 **Investir** | Suas moedas trabalham por você. A paciência traz mais. |
-
 **O que a criança aprende pelo caminho:** dinheiro · troco · orçamento · poupança · investimento.
 
 **Ideias de jogabilidade em desenvolvimento**
-- 🎣 **Formas de ganhar moedas:** atividades na cidade, como pescar, minerar, cuidar de uma horta e salvar os *zumbis do crédito*.
+- 🎣 **Formas de ganhar moedas:** trabalhos e atividades pela cidade, como trabalhar no supermercado ou na sorveteria, pescar, minerar, cuidar de uma horta e salvar os *zumbis do crédito*.
 - 🏦 **Banquinho do jogo:** guardar dinheiro, ver a poupança crescer e, para os mais velhos, transferências e um cartão simulado.
 - 🛒 **Lojinha:** itens para gastar as moedas conquistadas e sentir o peso de cada escolha.
 - 🗣️ **Narradora:** uma narradora guia o tutorial e a história, para a criança ouvir em vez de só ler.
@@ -245,20 +246,7 @@ Lojas, veículos, monumentos e decorações, todos modelados e texturizados pela
 <img src="docs/images/city/models-4.jpg" width="100%">
 </details>
 
-### 4 · História e personalização
-
-A Cidade do Tesouro é governada por dois gêmeos: **Prudêncio**, que planeja e poupa, e **Valério**, que ama coisas caras e quer tudo para ontem.<br>
-Impaciente, Valério faz um pacto secreto com o **Dr. Crédito**, e o dinheiro fácil se espalha pela cidade.<br>
-No começo, todos comemoram. Depois, as dívidas crescem mais rápido do que qualquer um consegue pagar.<br>
-Os Jurildos vermelhos fazem os juros subirem, e quem não consegue pagar vira um **zumbi do crédito**.<br>
-Prudêncio descobre a verdade, aperta o botão de emergência… e um agente é chamado: **você**.
-
-O jogador escolhe e personaliza seu agente, para que crianças de diferentes etnias e características físicas se vejam no jogo.
-
-<img src="docs/images/storyboard.jpg" width="100%">
-<img src="docs/images/customization.jpg" width="100%">
-
-### 5 · Conversando com crianças e pais
+### 4 · Conversando com crianças e pais
 
 Já conversamos com crianças e pais para entender do que gostam, o que esperam de um jogo sobre dinheiro e o que faz eles confiarem nele. Essas conversas orientam nossos personagens, as missões e o modelo freemium.
 
@@ -316,9 +304,6 @@ flowchart LR
 ```
 
 - **Token SPL:** a GLORY Coin é um token SPL com 2 casas decimais. O endereço da moeda é derivado da chave do servidor do jogo e criado no primeiro uso.
-- **Jogadores anônimos:** cada jogador recebe uma carteira derivada de um ID anônimo. Nenhum dado pessoal vai para a blockchain.
-- **Assinado pelo servidor:** o servidor do jogo assina as transações e paga as taxas da rede.
-- **Funciona offline também:** o progresso também fica salvo no aparelho, então o jogo continua funcionando se a rede estiver indisponível.
 
 <details>
 <summary><b>Código: pagamento da comissão do dia</b> (<code>glory-site/netlify/functions/glory-coin.mjs</code>)</summary>
@@ -379,15 +364,6 @@ glory/
 │   └── assets/                  # imagens, vídeos 3D, vídeo do pitch, trilha sonora
 └── docs/                        # imagens e GIFs do README (processo de design, personagens, cidade)
 ```
-
----
-
-## 🚀 Como rodar
-
-1. **Crie uma carteira devnet** para o jogo: `cd glory-site && npm install && npm run wallet`
-2. **Coloque SOL de teste** nela em [faucet.solana.com](https://faucet.solana.com) (ele paga as taxas da rede).
-3. **Publique no Netlify** a partir deste repositório (o `netlify.toml` da raiz já aponta para `glory-site/`) e adicione a variável de ambiente `GLORY_DEVNET_SECRET` com a chave secreta da carteira.
-4. **Confira:** `/.netlify/functions/glory-coin` deve mostrar `"ready": true`. Depois abra `/play/?teste=1` e acompanhe o painel da Solana.
 
 ---
 

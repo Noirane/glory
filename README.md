@@ -78,7 +78,6 @@ Laura works at the ice-cream shop and earns **10% of every sale in GLORY Coin** 
 </tr>
 </table>
 
-> 🧪 **Quick test:** [`/play/?teste=1`](https://playglory.netlify.app/play/?teste=1) starts with +50 GLORY Coin and 90-second days, so you can see the commission, a purchase and the Solana transactions in about two minutes. Test mode keeps its own save and never touches the real record.
 
 ---
 
@@ -99,7 +98,6 @@ Laura works at the ice-cream shop and earns **10% of every sale in GLORY Coin** 
 - [Business model & market](#-business-model--market)
 - [Roadmap](#️-roadmap)
 - [What's in this repository](#-whats-in-this-repository)
-- [How to run](#-how-to-run)
 - [Team](#-team)
 
 ---
@@ -127,7 +125,16 @@ When we looked at what already exists, we found a pattern: **many financial game
 
 **GLORY is an online game where kids live the story instead of just reading it.**
 
-A treasure city, two very different twin brothers, a villain who offers *easy money today*, and heroes who help everyone make better choices. Every mission is about money, and every choice has a consequence.
+The Treasure City is ruled by twin brothers: **Prudêncio**, who plans and saves, and **Valério**, who loves expensive things and wants everything right now.<br>
+Impatient, Valério makes a secret pact with **Dr. Crédito**, and easy money spreads across the city.<br>
+At first, everyone celebrates. Then the debts grow faster than anyone can pay them back.<br>
+The red Jurildos push the interest higher, and anyone who can't pay becomes a **credit zombie**.<br>
+Prudêncio uncovers the truth, hits the emergency button… and an agent is called in: **you**.
+
+Players choose and customize their agent, so kids of every ethnicity and look can see themselves in the game.
+
+<img src="docs/images/storyboard.jpg" width="100%">
+<img src="docs/images/customization.jpg" width="100%">
 
 ---
 
@@ -140,16 +147,10 @@ A treasure city, two very different twin brothers, a villain who offers *easy mo
                      of effort                                     achievements
 ```
 
-| Choice | What happens in the game |
-|---|---|
-| 🛍️ **Spend** | You bought a snack now. Fewer coins for later. |
-| 🐷 **Save** | Your piggy bank grows. Saving pays off! |
-| 📈 **Invest** | Your coins are working for you. Patience brings more. |
-
 **What kids learn along the way:** money · change · budgeting · saving · investing.
 
 **Gameplay ideas in development**
-- 🎣 **Ways to earn coins:** activities around the city, like fishing, mining, tending a vegetable garden and rescuing the *credit zombies*.
+- 🎣 **Ways to earn coins:** jobs and activities around the city, like working at the supermarket or the ice-cream shop, fishing, mining, tending a vegetable garden and rescuing the *credit zombies*.
 - 🏦 **In-game bank:** keep money safe, watch savings grow and, for older kids, transfers and a simulated card.
 - 🛒 **Shop:** items to spend hard-earned coins on, so every choice carries weight.
 - 🗣️ **Narrator:** a narrator guides the tutorial and the story, so kids can listen instead of only reading.
@@ -245,20 +246,7 @@ Shops, vehicles, landmarks and decorations, all modeled and textured by the team
 <img src="docs/images/city/models-4.jpg" width="100%">
 </details>
 
-### 4 · Story and customization
-
-The Treasure City is ruled by twin brothers: **Prudêncio**, who plans and saves, and **Valério**, who loves expensive things and wants everything right now.<br>
-Impatient, Valério makes a secret pact with **Dr. Crédito**, and easy money spreads across the city.<br>
-At first, everyone celebrates. Then the debts grow faster than anyone can pay them back.<br>
-The red Jurildos push the interest higher, and anyone who can't pay becomes a **credit zombie**.<br>
-Prudêncio uncovers the truth, hits the emergency button… and an agent is called in: **you**.
-
-Players choose and customize their agent, so kids of every ethnicity and look can see themselves in the game.
-
-<img src="docs/images/storyboard.jpg" width="100%">
-<img src="docs/images/customization.jpg" width="100%">
-
-### 5 · Talking to kids and parents
+### 4 · Talking to kids and parents
 
 We have already talked with kids and parents to hear what they enjoy, what they expect from a game about money and what makes them trust it. These conversations shape our characters, missions and the freemium model.
 
@@ -316,9 +304,6 @@ flowchart LR
 ```
 
 - **SPL token:** the GLORY Coin is an SPL token with 2 decimals. Its mint address is derived from the game server key and created on first use.
-- **Anonymous players:** each player gets a wallet derived from an anonymous player ID. No personal data goes on-chain.
-- **Server-signed:** the game server signs the transactions and pays the network fees.
-- **Works offline too:** progress is also saved on the device, so the game keeps working if the network is unavailable.
 
 <details>
 <summary><b>Code: paying the daily commission</b> (<code>glory-site/netlify/functions/glory-coin.mjs</code>)</summary>
@@ -379,15 +364,6 @@ glory/
 │   └── assets/                  # images, 3D footage, pitch video, soundtrack
 └── docs/                        # README images and GIFs (design process, cast, city)
 ```
-
----
-
-## 🚀 How to run
-
-1. **Create a devnet wallet** for the game: `cd glory-site && npm install && npm run wallet`
-2. **Fund it** with devnet SOL at [faucet.solana.com](https://faucet.solana.com) (it pays the network fees).
-3. **Deploy on Netlify** from this repository (the root `netlify.toml` already points to `glory-site/`) and add the environment variable `GLORY_DEVNET_SECRET` with the wallet's secret key.
-4. **Check:** `/.netlify/functions/glory-coin` should show `"ready": true`. Then open `/play/?teste=1` and watch the Solana panel.
 
 ---
 
