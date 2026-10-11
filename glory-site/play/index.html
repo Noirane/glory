@@ -844,8 +844,9 @@ const COST = () => 1;                                                 // what ea
 const TEST = new URLSearchParams(location.search).get('teste') === '1'; // test link: ?teste=1 → +50 coins (paid on Solana) and 90-second days
 const GOAL = 25, DAY_T = TEST ? 90 : 180;
 const BANK = { purse: 0, day: 1, firstEver: true, earnedAch: {}, bought: [], offered: [], spent: 0, hist: [], served: 0, playT: 0, best: null };
-try { const sv = JSON.parse(localStorage.getItem('glory-save') || 'null'); if (sv) Object.assign(BANK, sv, { earnedAch: sv.earnedAch || {} }); } catch {}
-function saveBank() { try { localStorage.setItem('glory-save', JSON.stringify(BANK)); } catch {} }
+const SAVE_KEY = TEST ? 'glory-save-test' : 'glory-save';   // test link keeps its own save, so it never touches the real record
+try { const sv = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); if (sv) Object.assign(BANK, sv, { earnedAch: sv.earnedAch || {} }); } catch {}
+function saveBank() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(BANK)); } catch {} }
 const mmss = t => { t = Math.max(0, Math.round(t)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); };
 function showClock() { const c = $('clockT'); if (c) c.textContent = mmss(BANK.playT); const r = $('recBox'); if (r) { r.hidden = !BANK.best; if (BANK.best) $('recT').textContent = mmss(BANK.best.secs); } }
 function showPurse() { showClock(); $('purse').textContent = cur(BANK.purse); $('purseBar').style.width = Math.min(100, BANK.purse / DREAM * 100) + '%'; }
