@@ -826,18 +826,19 @@ const SOL = { log: [], status: 'checking', open: false };
 function solRender() { const el = $('solPanel'); if (!el) return; const n = SOL.log.filter(e => e.st === 'ok').length;
   const dot = SOL.status === 'on' ? '#14F195' : SOL.status === 'off' ? '#B8B2C6' : '#FFC845';
   const head = `<button class="solhead" id="solHead"><i style="background:${dot}"></i>◎ Solana ${SOL.status === 'on' ? T2('conectada', 'connected') : SOL.status === 'off' ? 'offline' : '…'}${n ? ` · ${n}` : ''}</button>`;
-  const rows = SOL.log.slice(-6).reverse().map(e => `<li class="${e.st}">${e.st === 'pending' ? '⏳' : e.st === 'ok' ? '✅' : '⚠️'} ${e.txt}${e.link ? ` <a href="${e.link}" target="_blank" rel="noopener">${T2('ver', 'view')} ↗</a>` : e.st === 'err' ? ` <small>${T2('salvo no aparelho', 'saved on device')}</small>` : ''}</li>`).join('');
+  const rows = SOL.log.slice(-6).reverse().map(e => `<li class="${e.st}">${e.st === 'pending' ? '⏳' : e.st === 'ok' ? '✅' : '⚠️'} ${e.txt}${e.link ? ` <a href="${e.link}" target="_blank" rel="noopener">${T2('ver', 'view')} ↗</a>` : e.st === 'err' ? ` <small>${T2('salvo no aparelho', 'saved on device')}${e.why ? ' · ' + e.why.replace(/[<>&]/g, '') : ''}</small>` : ''}</li>`).join('');
   el.innerHTML = head + (SOL.open ? `<div class="solbody"><ul>${rows || `<li>${T2('Nenhuma transação ainda.', 'No transactions yet.')}</li>`}</ul>${BANK.wallet ? `<a class="solwal" href="${BANK.wallet}" target="_blank" rel="noopener">${T2('Ver carteira GLORY Coin', 'View GLORY Coin wallet')} ↗</a>` : ''}</div>` : '');
   $('solHead').onclick = e => { e.stopPropagation(); SOL.open = !SOL.open; solRender(); }; }
 function solAdd(txt) { const e = { txt, st: 'pending' }; SOL.log.push(e); solRender(); const el = $('solPanel'); el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); return e; }
-function solDone(e, j) { if (j && (j.explorer || j.signature)) { e.st = 'ok'; e.link = j.explorer; SOL.status = 'on'; } else { e.st = 'err'; if (SOL.status !== 'on') SOL.status = 'off'; } solRender(); }
+function solDone(e, j) { if (j && (j.explorer || j.signature)) { e.st = 'ok'; e.link = j.explorer; SOL.status = 'on'; } else { e.st = 'err'; e.why = j && j.error ? String(j.error).slice(0, 90) : ''; if (SOL.status !== 'on') SOL.status = 'off'; } solRender(); }
+const solJson = r => r.text().then(t => { try { return JSON.parse(t); } catch { return { error: 'HTTP ' + r.status + (r.status === 404 ? ' (function not deployed)' : '') }; } });
 function coin(action, data, onLink) {
   const e = solAdd(action === 'pay' ? (data.day ? T2(`Comissão do dia ${data.day}: ${cur(data.cents / 100)}`, `Day ${data.day} commission: ${cur(data.cents / 100)}`) : T2(`Depósito de teste: ${cur(data.cents / 100)}`, `Test deposit: ${cur(data.cents / 100)}`))
     : T2(`Compra: ${data.item} · ${cur(data.cents / 100)}`, `Purchase: ${data.item} · ${cur(data.cents / 100)}`));
   fetch('/.netlify/functions/glory-coin', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action, player: PLAYER, ...data }) })
-  .then(r => r.json()).then(j => { if (j.walletExplorer) { BANK.wallet = j.walletExplorer; saveBank(); } solDone(e, j); if (j.explorer) { coinLinks.push({ action, ...data, link: j.explorer }); onLink && onLink(j.explorer); } }).catch(() => solDone(e, null)); }
+  .then(solJson).then(j => { if (j.walletExplorer) { BANK.wallet = j.walletExplorer; saveBank(); } solDone(e, j); if (j.explorer) { coinLinks.push({ action, ...data, link: j.explorer }); onLink && onLink(j.explorer); } }).catch(err => solDone(e, { error: String(err && err.message || err) })); }
 function solCheck() { fetch('/.netlify/functions/glory-coin', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'balance', player: PLAYER }) })
-  .then(r => r.json()).then(j => { SOL.status = j.mint && !j.error ? 'on' : 'off'; if (j.walletExplorer) { BANK.wallet = j.walletExplorer; saveBank(); } solRender(); }).catch(() => { SOL.status = 'off'; solRender(); }); }
+  .then(solJson).then(j => { SOL.status = j.mint && !j.error ? 'on' : 'off'; SOL.why = j.error || ''; if (j.walletExplorer) { BANK.wallet = j.walletExplorer; saveBank(); } solRender(); }).catch(() => { SOL.status = 'off'; solRender(); }); }
 const solChip = link => `<a class="solchip" href="${link}" target="_blank" rel="noopener">✓ Solana</a>`;
 const COST = () => 1;                                                 // what each ingredient costs us
 const TEST = new URLSearchParams(location.search).get('teste') === '1'; // test link: ?teste=1 → +50 coins (paid on Solana) and 30-second days
@@ -911,7 +912,7 @@ function showSummary() { const earn = Math.round(S.sales * SHARE * 100) / 100; c
    <button id="next" disabled>…</button>`;
   $('result').hidden = false;
   setTimeout(() => flyPay($('earnB'), earn, () => { BANK.purse = shown; showPurse(); $('purseBox').classList.remove('bump'); void $('purseBox').offsetWidth; $('purseBox').classList.add('bump'); sfx.coin(); $('dreamBox').innerHTML = dreamBar();
-    coin('pay', { cents: Math.round(earn * 100), day: BANK.day }, link => { const el = $('earnB'); if (el && !el.querySelector('.solchip')) el.insertAdjacentHTML('afterend', solChip(link)); });
+    if (earn > 0) coin('pay', { cents: Math.round(earn * 100), day: BANK.day }, link => { const el = $('earnB'); if (el && !el.querySelector('.solchip')) el.insertAdjacentHTML('afterend', solChip(link)); });
     const b = $('next'); b.disabled = false; const tm = TEMPT.find(t => !BANK.offered.includes(t.id) && !BANK.bought.includes(t.id) && BANK.purse >= t.price);
     if (BANK.purse >= DREAM) { b.textContent = T2('Comprar minha coroa! 👑', 'Buy my crown! 👑'); b.onclick = finale; }
     else if (tm) { b.textContent = T2('Continuar 👉', 'Continue 👉'); b.onclick = () => tempt(tm); }
