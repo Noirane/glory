@@ -245,6 +245,12 @@ section { padding-block: clamp(72px, 10vw, 130px); position: relative; }
 .medal .disc { width: 72%; aspect-ratio: 1; border-radius: 50%; background: linear-gradient(135deg, #B38BFF, #3CF0B4); box-shadow: 0 0 70px rgba(60,240,180,.45); display: grid; place-items: center; }
 .medal svg { width: 46%; }
 .verified { margin-top: 18px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,.1); font-weight: 800; font-size: 15px; }
+.coin-line { margin: 18px 0 0; font-size: clamp(18px, 1.8vw, 22px); color: #F2EEFF; }
+.coin-line b { background: linear-gradient(90deg, #FFE27A, #F2B42C); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.coin-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+.coin-list li { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: clamp(16px, 1.6vw, 19px); }
+.coin-list li::before { content: "✓"; display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 50%; background: linear-gradient(135deg, #B38BFF, #3CF0B4); color: #fff; font-size: 14px; }
+.coin-link { display: inline-block; margin: 16px 0 0 12px; color: #7CF3B0; font-weight: 800; font-size: 15px; }
 .verified i { width: 10px; height: 10px; border-radius: 50%; background: #3CF0B4; box-shadow: 0 0 10px #3CF0B4; }
 @keyframes rotate { to { transform: rotate(360deg); } }
 
@@ -432,13 +438,13 @@ footer { padding-block: 30px calc(110px + env(safe-area-inset-bottom, 0px)); tex
   <section class="demo" id="demo" aria-labelledby="demoTitle">
     <div class="wrap">
       <div class="pitch-head reveal">
-        <span class="eyebrow" data-i18n="demo.eyebrow">Play the demo</span>
+        <span class="eyebrow" data-i18n="demo.eyebrow">Playable proof of concept</span>
         <h2 id="demoTitle" data-i18n="demo.title">Help Laura earn her <span class="accent">golden crown</span>.</h2>
-        <p class="lead" data-i18n="demo.lead">Laura works at the ice-cream shop and earns 10% of every sale. Serve fast, resist temptations and reach $100. With records on Solana.</p>
+        <p class="lead" data-i18n="demo.lead">Laura works at the ice-cream shop and earns 10% of every sale in GLORY Coin. Serve fast, resist temptations and reach $100. With records on Solana.</p>
       </div>
       <div class="demo-frame reveal" id="demoFrame">
-        <img class="demo-poster" src="assets/demo-poster.jpg" alt="Laura's Ice-Cream Shop, GLORY demo" width="1280" height="720" loading="lazy">
-        <button class="pitch-play demo-start" id="demoStart" type="button" aria-label="Play the demo"><svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></button>
+        <img class="demo-poster" src="assets/demo-poster.jpg" alt="Laura's Ice-Cream Shop, GLORY proof of concept" width="1280" height="720" loading="lazy">
+        <button class="pitch-play demo-start" id="demoStart" type="button" aria-label="Play the proof of concept"><svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></button>
         <span class="demo-label" data-i18n="demo.play">▶ Play now · free, in the browser</span>
       </div>
       <p class="demo-note"><button class="demo-full" id="demoFull" type="button" hidden data-i18n="demo.full">⛶ Full screen</button><span data-i18n="demo.note">Tip: on a phone, the game opens in full screen.</span> <a href="play/" target="_blank" rel="noopener" data-i18n="demo.tab">Open in a new tab ↗</a></p>
@@ -553,8 +559,11 @@ footer { padding-block: 30px calc(110px + env(safe-area-inset-bottom, 0px)); tex
         <div>
           <span class="eyebrow">GLORY + Solana</span>
           <h2 data-i18n="sol.title">Achievements that go <span class="sol">beyond the game</span>.</h2>
-          <p class="lead" data-i18n="sol.lead">Solana enables verifiable educational achievements.</p>
-          <span class="verified"><i></i><span data-i18n="sol.verified">Verified on Solana</span></span>
+          <p class="lead" data-i18n="sol.lead">With Solana, GLORY offers verifiable achievements.</p>
+          <p class="coin-line" data-i18n="sol.coin">And it has its own currency: the <b>GLORY Coin</b>.</p>
+          <ul class="coin-list"><li data-i18n="sol.c1">Every coin earned</li><li data-i18n="sol.c2">Every purchase</li><li data-i18n="sol.c3">Every record</li></ul>
+          <p class="coin-line" data-i18n="sol.rec">…recorded on Solana.</p>
+          <span class="verified"><i></i><span data-i18n="sol.verified">Verified on Solana</span></span><a class="coin-link" href="https://explorer.solana.com/address/DcYtJeK5iJ726BfCNy6P8trg2AEwwYQUqNeLgr2HmH6u?cluster=devnet" target="_blank" rel="noopener" data-i18n="sol.link">See GLORY Coin on Solana ↗</a>
         </div>
         <div class="medal" aria-hidden="true">
           <div class="rays"></div>
@@ -569,7 +578,7 @@ footer { padding-block: 30px calc(110px + env(safe-area-inset-bottom, 0px)); tex
       <div class="head reveal">
         <span class="eyebrow" data-i18n="life.eyebrow">Where we are</span>
         <h2 data-i18n="life.title">GLORY is already coming to <span class="accent">life</span>!</h2>
-        <p class="lead" data-i18n="life.lead">Our characters and our city already exist, and the first movement tests have begun.</p>
+        <p class="lead" data-i18n="life.lead">Our characters and our city already exist. And we already have a playable proof of concept, connected to Solana.</p>
       </div>
       <div class="screen reveal">
         <video src="assets/city.mp4" poster="assets/city-poster.jpg" autoplay muted loop playsinline controls preload="metadata"></video>
@@ -613,7 +622,6 @@ footer { padding-block: 30px calc(110px + env(safe-area-inset-bottom, 0px)); tex
         <article class="plan reveal"><div class="ic" style="--bg: var(--lav-bg)"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path fill="#6A4BD6" d="M12 2l2.6 6.6L21 9.2l-5 4.4 1.5 6.9L12 17l-5.5 3.5L8 13.6 3 9.2l6.4-.6Z"/></svg></div><h3 data-i18n="biz.special">Special missions</h3><p data-i18n="biz.specialT">New stories and new challenges.</p></article>
         <article class="plan reveal"><div class="ic" style="--bg: var(--mint-bg)"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="12" r="6" fill="#2FA77F"/><circle cx="15" cy="12" r="6" fill="#2FA77F" opacity=".6"/></svg></div><h3 data-i18n="biz.partners">Partners</h3><p data-i18n="biz.partnersT">Missions and events sponsored by financial institutions and brands.</p></article>
       </div>
-      <div class="parent reveal"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="#C2336E" d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Zm2 0h6V7a3 3 0 0 0-6 0Z"/></svg><span data-i18n="biz.parent">Every purchase needs parental approval.</span></div>
     </div>
   </section>
 
@@ -622,7 +630,7 @@ footer { padding-block: 30px calc(110px + env(safe-area-inset-bottom, 0px)); tex
       <div class="head reveal">
         <span class="eyebrow" data-i18n="road.eyebrow">Next step</span>
         <h2 data-i18n="road.title">MVP in <span class="accent">12 months</span>.</h2>
-        <p class="lead" data-i18n="road.lead">From prototype to a complete, playable experience, online.</p>
+        <p class="lead" data-i18n="road.lead">From proof of concept to a complete, playable experience, online.</p>
       </div>
       <div class="reveal">
         <div class="bar" id="bar"><i></i></div>
@@ -699,8 +707,8 @@ const I18N = {
     'how.spend':'Spend','how.save':'Save','how.invest':'Invest','how.tap':'Tap a choice to see its consequence.',
     'out.spend':'You bought a snack now. Fewer coins for later.','out.save':'Your piggy bank grows. Saving pays off!','out.invest':'Your coins are working for you. Patience brings more.',
     'learn.money':'Money','learn.change':'Change','learn.budget':'Budgeting','learn.saving':'Saving','learn.investing':'Investing',
-    'sol.title':'Achievements that go <span class="sol">beyond the game</span>.','sol.lead':'Solana enables verifiable educational achievements.','sol.verified':'Verified on Solana',
-    'life.eyebrow':'Where we are','life.title':'GLORY is already coming to <span class="accent">life</span>!','life.lead':'Our characters and our city already exist, and the first movement tests have begun.',
+    'sol.title':'Achievements that go <span class="sol">beyond the game</span>.','sol.lead':'With Solana, GLORY offers verifiable achievements.','sol.coin':'And it has its own currency: the <b>GLORY Coin</b>.','sol.c1':'Every coin earned','sol.c2':'Every purchase','sol.c3':'Every record','sol.rec':'…recorded on Solana.','sol.link':'See GLORY Coin on Solana ↗','sol.verified':'Verified on Solana',
+    'life.eyebrow':'Where we are','life.title':'GLORY is already coming to <span class="accent">life</span>!','life.lead':'Our characters and our city already exist. And we already have a playable proof of concept, connected to Solana.',
     'life.city':'GLORY City · 3D','life.cityNote':'Real footage from our 3D build in Blender','life.move':'First movement tests','life.moveNote':'Laura’s walk cycle and expressions',
     'life.chars':'Characters in 3D','life.charsNote':'From blank models to the full cast',
     'life.f1':'The city exists','life.f1t':'A treasure city full of shops, castles and gardens.','life.f2':'Characters in 3D','life.f2t':'Modeled from our 2D art into 3D.','life.f3':'In motion','life.f3t':'Walk cycles and expressions are being tested.',
@@ -708,7 +716,7 @@ const I18N = {
     'biz.eyebrow':'Business model','biz.title':'Freemium, made for families.','biz.free':'FREE','biz.freeT':'to play. Any kid can join, explore the city and play the main missions without paying anything.',
     'biz.items':'Items','biz.itemsT':'Outfits and accessories for your character. No gameplay advantage.','biz.special':'Special missions','biz.specialT':'New stories and new challenges.',
     'biz.partners':'Partners','biz.partnersT':'Missions and events sponsored by financial institutions and brands.','biz.parent':'Every purchase needs parental approval.',
-    'road.eyebrow':'Next step','road.title':'MVP in <span class="accent">12 months</span>.','road.lead':'From prototype to a complete, playable experience, online.','road.m1':'Month 1','road.m6':'Month 6','road.m12':'Month 12',
+    'road.eyebrow':'Next step','road.title':'MVP in <span class="accent">12 months</span>.','road.lead':'From proof of concept to a complete, playable experience, online.','road.m1':'Month 1','road.m6':'Month 6','road.m12':'Month 12',
     'road.r1':'City','road.r1t':'An explorable area.','road.r2':'Missions','road.r2t':'Several money missions with choices and consequences.','road.r3':'Progression','road.r3t':'Levels and achievements recorded on Solana.',
     'road.r4':'Store','road.r4t':'The first personalization items.','road.r5':'Testing','road.r5t':'Measuring fun and learning with kids.',
     'team.eyebrow':'Team','team.title':'A multidisciplinary team.','team.cs':'Computer Science','team.fin':'Finance','team.math':'Mathematics','team.edu':'Education',
@@ -716,7 +724,7 @@ const I18N = {
     'end.title':'We are building a world where learning about money means <span class="accent">living adventures</span>.','end.cta':'Back to the start','footer':'© 2026 GLORY · A really fun game about financial education.',
     'world.eyebrow':'Welcome to GLORY City','world.title':'The adventure starts here.',
     'music.play':'Play music','music.pause':'Pause music',
-    'nav.pitch':'Pitch','pitch.eyebrow':'The pitch','pitch.title':'Watch GLORY in 3 minutes.','nav.demo':'Play','demo.eyebrow':'Play the demo','demo.title':'Help Laura earn her <span class="accent">golden crown</span>.','demo.lead':'Laura works at the ice-cream shop and earns 10% of every sale. Serve fast, resist temptations and reach $100. Your best time is recorded on Solana.','demo.play':'▶ Play now · free, in the browser','demo.full':'⛶ Full screen','demo.note':'Tip: on a phone, the game opens in full screen.','demo.tab':'Open in a new tab ↗',
+    'nav.pitch':'Pitch','pitch.eyebrow':'The pitch','pitch.title':'Watch GLORY in 3 minutes.','nav.demo':'Play','demo.eyebrow':'Playable proof of concept','demo.title':'Help Laura earn her <span class="accent">golden crown</span>.','demo.lead':'Laura works at the ice-cream shop and earns 10% of every sale in GLORY Coin. Serve fast, resist temptations and reach $100. With records on Solana.','demo.play':'▶ Play now · free, in the browser','demo.full':'⛶ Full screen','demo.note':'Tip: on a phone, the game opens in full screen.','demo.tab':'Open in a new tab ↗',
     'meta':'A really fun game about financial education, where learning about money is an adventure.'
   },
   pt: {
@@ -738,8 +746,8 @@ const I18N = {
     'how.spend':'Gastar','how.save':'Poupar','how.invest':'Investir','how.tap':'Toque numa escolha para ver a consequência.',
     'out.spend':'Você comprou um lanche agora. Menos moedas para depois.','out.save':'Seu cofrinho cresce. Poupar vale a pena!','out.invest':'Suas moedas trabalham por você. Paciência traz mais.',
     'learn.money':'Dinheiro','learn.change':'Troco','learn.budget':'Orçamento','learn.saving':'Poupança','learn.investing':'Investimento',
-    'sol.title':'Conquistas que vão <span class="sol">além do jogo</span>.','sol.lead':'A Solana permite conquistas educacionais verificáveis.','sol.verified':'Verificado na Solana',
-    'life.eyebrow':'Onde estamos','life.title':'O GLORY já está ganhando <span class="accent">vida</span>!','life.lead':'Nossos personagens e a nossa cidade já existem, e os primeiros testes de movimentação já começaram.',
+    'sol.title':'Conquistas que vão <span class="sol">além do jogo</span>.','sol.lead':'Com a Solana, o GLORY oferece conquistas verificáveis.','sol.coin':'E tem a sua própria moeda: a <b>GLORY Coin</b>.','sol.c1':'Cada moeda ganha','sol.c2':'Cada compra','sol.c3':'Cada recorde','sol.rec':'…ficam registrados na Solana.','sol.link':'Ver a GLORY Coin na Solana ↗','sol.verified':'Verificado na Solana',
+    'life.eyebrow':'Onde estamos','life.title':'O GLORY já está ganhando <span class="accent">vida</span>!','life.lead':'Nossos personagens e a nossa cidade já existem. E já temos uma prova de conceito jogável, conectada à Solana.',
     'life.city':'Cidade GLORY · 3D','life.cityNote':'Imagens reais da nossa construção 3D no Blender','life.move':'Primeiros testes de movimentação','life.moveNote':'Caminhada e expressões da Laura',
     'life.chars':'Personagens em 3D','life.charsNote':'Dos modelos em branco ao elenco completo',
     'life.f1':'A cidade existe','life.f1t':'Uma cidade-tesouro cheia de lojas, castelos e jardins.','life.f2':'Personagens em 3D','life.f2t':'Modelados em 3D a partir da nossa arte 2D.','life.f3':'Em movimento','life.f3t':'Caminhadas e expressões estão em teste.',
@@ -747,7 +755,7 @@ const I18N = {
     'biz.eyebrow':'Modelo de negócio','biz.title':'Freemium, feito para famílias.','biz.free':'GRÁTIS','biz.freeT':'para jogar. Qualquer criança pode entrar, explorar a cidade e fazer as missões principais sem pagar nada.',
     'biz.items':'Itens','biz.itemsT':'Roupas e acessórios para o personagem. Sem vantagem no jogo.','biz.special':'Missões especiais','biz.specialT':'Novas histórias e novos desafios.',
     'biz.partners':'Parceiros','biz.partnersT':'Missões e eventos patrocinados por instituições financeiras e marcas.','biz.parent':'Toda compra passa pela autorização dos pais.',
-    'road.eyebrow':'Próximo passo','road.title':'MVP em <span class="accent">12 meses</span>.','road.lead':'Do protótipo a uma experiência jogável completa, online.','road.m1':'Mês 1','road.m6':'Mês 6','road.m12':'Mês 12',
+    'road.eyebrow':'Próximo passo','road.title':'MVP em <span class="accent">12 meses</span>.','road.lead':'Da prova de conceito a uma experiência jogável completa, online.','road.m1':'Mês 1','road.m6':'Mês 6','road.m12':'Mês 12',
     'road.r1':'Cidade','road.r1t':'Uma área explorável.','road.r2':'Missões','road.r2t':'Várias missões de dinheiro com escolhas e consequências.','road.r3':'Progressão','road.r3t':'Níveis e conquistas registrados na Solana.',
     'road.r4':'Loja','road.r4t':'Os primeiros itens de personalização.','road.r5':'Testes','road.r5t':'Medindo diversão e aprendizado com crianças.',
     'team.eyebrow':'Equipe','team.title':'Uma equipe multidisciplinar.','team.cs':'Ciência da Computação','team.fin':'Finanças','team.math':'Matemática','team.edu':'Educação',
@@ -755,7 +763,7 @@ const I18N = {
     'end.title':'Estamos construindo um mundo onde aprender sobre dinheiro significa <span class="accent">viver aventuras</span>.','end.cta':'Voltar ao início','footer':'© 2026 GLORY · Um jogo realmente divertido sobre educação financeira.',
     'world.eyebrow':'Bem-vindo à Cidade GLORY','world.title':'A aventura começa aqui.',
     'music.play':'Ouvir a trilha','music.pause':'Pausar a trilha',
-    'nav.pitch':'Pitch','pitch.eyebrow':'O pitch','pitch.title':'Conheça o GLORY em 3 minutos.','nav.demo':'Jogar','demo.eyebrow':'Jogue o demo','demo.title':'Ajude a Laura a conquistar a <span class="accent">coroa dourada</span>.','demo.lead':'A Laura trabalha na sorveteria e ganha 10% de cada venda. Sirva rápido, resista às tentações e junte R$100. Seu melhor tempo fica registrado na Solana.','demo.play':'▶ Jogar agora · grátis, no navegador','demo.full':'⛶ Tela cheia','demo.note':'Dica: no celular, o jogo abre em tela cheia.','demo.tab':'Abrir em nova aba ↗',
+    'nav.pitch':'Pitch','pitch.eyebrow':'O pitch','pitch.title':'Conheça o GLORY em 3 minutos.','nav.demo':'Jogar','demo.eyebrow':'Prova de conceito jogável','demo.title':'Ajude a Laura a conquistar a <span class="accent">coroa dourada</span>.','demo.lead':'A Laura trabalha na sorveteria e ganha 10% de cada venda em GLORY Coin. Sirva rápido, resista às tentações e junte R$100. Com recordes na Solana.','demo.play':'▶ Jogar agora · grátis, no navegador','demo.full':'⛶ Tela cheia','demo.note':'Dica: no celular, o jogo abre em tela cheia.','demo.tab':'Abrir em nova aba ↗',
     'meta':'Um jogo realmente divertido sobre educação financeira, onde aprender sobre dinheiro é uma aventura.'
   }
 };
