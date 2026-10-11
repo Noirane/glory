@@ -1,7 +1,0 @@
-{
-  "name": "glory-sorveteria",
-  "private": true,
-  "type": "module",
-  "scripts": { "wallet": "node scripts/create-devnet-wallet.mjs" },
-  "dependencies": { "@solana/web3.js": "1.95.3" }
-}
